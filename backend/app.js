@@ -172,6 +172,83 @@ app.post("/data", async (req, res) => {
   }
 });
 
+app.post("/history", async (req, res) => {
+  try {
+    const { tractorId } = req.body;
+    if (!tractorId) {
+      return res.status(400).json({ error: "tractorId is required" });
+    }
+
+    let tId = String(tractorId).trim().replace(/'/g, "''");
+
+    // 🔥 LAST 7 DAYS LOGIC
+    const queryString = `
+      SELECT
+        fixTime,
+        attributes.battVoltage,
+        attributes.battCurrent,
+        attributes.soc
+      FROM tractor_data_optimized
+      WHERE lower(trim(name)) = lower(trim('${tId}'))
+        AND p_date >= date_format(
+              date_add('day', -7, current_date),
+              '%Y-%m-%d'
+            )
+      ORDER BY fixTime ASC
+      LIMIT 2000;
+    `;
+
+    const startQuery = new StartQueryExecutionCommand({
+      QueryString: queryString,
+      QueryExecutionContext: {
+        Database: process.env.ATHENA_DATABASE_NAME,
+      },
+      ResultConfiguration: {
+        OutputLocation: process.env.ATHENA_OUTPUT_LOCATION,
+      },
+    });
+
+    const queryResponse = await athenaClient.send(startQuery);
+    const queryExecutionId = queryResponse.QueryExecutionId;
+
+    let state = "RUNNING";
+    while (state === "RUNNING" || state === "QUEUED") {
+      const exec = await athenaClient.send(
+        new GetQueryExecutionCommand({ QueryExecutionId: queryExecutionId })
+      );
+
+      state = exec.QueryExecution.Status.State;
+
+      if (state === "FAILED") {
+        return res.status(500).json({ error: "Athena query failed" });
+      }
+
+      if (state === "SUCCEEDED") break;
+
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+
+    const result = await athenaClient.send(
+      new GetQueryResultsCommand({ QueryExecutionId: queryExecutionId })
+    );
+
+    const columns =
+      result.ResultSet.ResultSetMetadata.ColumnInfo.map((c) => c.Name);
+
+    const rows = result.ResultSet.Rows.slice(1).map((row) => {
+      const obj = {};
+      row.Data.forEach((d, i) => {
+        obj[columns[i]] = d?.VarCharValue ?? null;
+      });
+      return obj;
+    });
+
+    res.json(rows);
+  } catch (err) {
+    console.error("❌ History error:", err);
+    res.status(500).json({ error: "History fetch failed" });
+  }
+});
 
 
 app.get("/vehicle", async (req, res) => {
