@@ -1,7 +1,9 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+// import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./LiveData.css";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { useEffect } from "react";
 
 import batteryInfo from "../assets/battery_information.png";
 import connectivity from "../assets/connectivity.png";
@@ -18,6 +20,19 @@ L.Icon.Default.mergeOptions({
   iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
+function RecenterMap({ lat, lng }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+
+    map.setView([lat, lng], map.getZoom(), {
+      animate: true,
+    });
+  }, [lat, lng]);
+
+  return null;
+}
 
 function LiveData({ info }) {
   if (!info) return null;
@@ -29,6 +44,16 @@ function LiveData({ info }) {
   attr.motion === true ||
   info.speed > 1 ||
   info.state === "moving";
+  
+  const lat = Number(info.latitude);
+const lng = Number(info.longitude);
+
+const hasValidLocation =
+  Number.isFinite(lat) &&
+  Number.isFinite(lng) &&
+  Math.abs(lat) <= 90 &&
+  Math.abs(lng) <= 180;
+
 
   return (
          <div className="live-screen">
@@ -94,7 +119,7 @@ function LiveData({ info }) {
                    <h3 className="h3">Location</h3>
                 </div>
                <div className="map-placeholder">
-                 {latitude && longitude ? (
+                 {/* {latitude && longitude ? (
                 <MapContainer
                   center={[latitude, longitude]}
                   zoom={15}
@@ -105,7 +130,25 @@ function LiveData({ info }) {
                     <Popup>Lat: {latitude}, Lng: {longitude}</Popup>
                   </Marker>
                 </MapContainer>
-              ) : <p>No location available</p>}
+              ) : <p>No location available</p>} */}
+              {hasValidLocation ? (
+  <MapContainer
+    center={[lat, lng]}
+    zoom={15}
+    className="map"
+  >
+    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+    <RecenterMap lat={lat} lng={lng} />
+
+    <Marker position={[lat, lng]}>
+      <Popup>Lat: {lat}, Lng: {lng}</Popup>
+    </Marker>
+  </MapContainer>
+) : (
+  <p>No valid location available</p>
+)}
+
             </div>
               <div className="map-values">
                 <p className="row"><span className="key">Latitude:</span><span className="value">{latitude}</span></p>

@@ -44,11 +44,11 @@ function Loader({ text }) {
 
 function Presentation() {
   const vehicleList = [
-    "ME9BT525J01573002",
-    "ME9BT725G01573001",
-    "ME9BT725G01573003",
+    "ME9BT525J01573002",  
+    "ME9BT725G01573001", //add location
+    "ME9BT725G01573003",//add location we are getting lat lan
     "ME9BT225E01573003",
-    "ME9BT225E01573002",
+    "ME9BT225E01573002",//add location on this also 
   ];
 
   const [vehicleIndex, setVehicleIndex] = useState(0);
