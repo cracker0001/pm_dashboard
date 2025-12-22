@@ -82,7 +82,6 @@ function Presentation() {
       try {
         const res = await fetchHistoryAPI({ tractorId: name });
         const history = res.data;
-
         if (!Array.isArray(history)) return;
 
         const formatted = history
@@ -163,6 +162,7 @@ function Presentation() {
       ) : graphLoading ? (
         <Loader text="Loading Graph Data..." />
       ) : (
+        
         <GraphContainer data={weekHistory} />
       )}
     </div>
