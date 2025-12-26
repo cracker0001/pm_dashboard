@@ -1,5 +1,5 @@
 import React from "react";
-import "./ota.css";
+import "./Ota.css";
 import tractorImg from "../assets/tractor.png";
 
 const Ota = () => {
