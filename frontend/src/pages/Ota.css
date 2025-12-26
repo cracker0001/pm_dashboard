@@ -1,0 +1,179 @@
+.ota-screen{
+    width: 100%;
+    height: 91.4vh;
+    background-color: rgb(234, 234, 234);
+}
+.ota-cards{
+    margin-top: 7vh;
+    width: 100%;
+    height: 23vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.ota-card{
+    width: 90%;
+    height: 16vh;
+    border-radius: 17px;
+    display: flex;
+    overflow: hidden;
+    background-color: white;
+}
+.ota-card-left{
+  width: 16%;
+  padding-left: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ota-card-right{
+  width: 84%;
+ height: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ 
+}
+
+.ota-card-right-child{
+  width: 98%;
+  height: 86%;
+  padding: 0 1.6rem;
+  background-color: rgb(249, 249, 249);
+  border-radius: 17px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ota-left-box{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.ota-left-label {
+  font-size: 0.85rem;
+  color: #393d45;
+  margin-bottom: 0.3rem;
+}
+
+.ota-left-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #111;
+}
+
+
+.ota-stat{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.ota-stat-label {
+  font-size: 0.8rem;
+  color: #2f3034;
+}
+
+.ota-stat-value {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: #111;
+}
+.ota-tractor-list{
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ota-updating-container {
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  border-radius: 20px;
+}
+.ota-updating-header {
+  font-size: 1rem;
+  margin-top: 2vw;
+  margin-left: 3vw;
+  font-weight: 600;
+  color: #111;
+}
+.ota-update-row {
+  
+  height: 10vh;
+  margin-top: 2vw;
+  margin-left: 3vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.ota-row-left {
+  width: 30%;
+  height: 100%;
+   display: flex;
+   gap: 3vw;
+  align-items: center;
+}
+ 
+.ota-tractor-img {
+  width: 5vw;
+  height: 9vh;
+  object-fit: cover;
+}
+
+
+.ota-tractor-text {
+  font-size: 0.5 rem;
+}
+.status{
+    background-color: #22c55e;
+    border-radius: 15px;
+    width: 20%;
+    color: white;
+    font-size: medium;
+    text-align: center;
+}
+
+.ota-tractor-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111;
+}
+
+.ota-tractor-status {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.ota-tractor-status.active {
+  background-color: #22c55e;
+}
+
+.ota-row-right {
+  width: 65%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 3vw;
+}
+.ota-progress{
+    width: 80%;
+    background-color: #c7c9c7;
+    height: 1vw;
+    border-radius: 20px;
+}
+.progress-bar{
+    width: 40%;
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgb(240, 171, 10);
+}

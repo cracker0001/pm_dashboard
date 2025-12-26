@@ -7,6 +7,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import "./App.css";
 import Presentation from "./pages/Presentation";
 import VehiclePage from "./pages/VehiclePage";
+import Ota from "./pages/Ota";
 
 export default function App() {
   return (
@@ -25,7 +26,8 @@ export default function App() {
 
           
           <Route path="presentation" element={<Presentation />} />
-
+          
+          <Route path="ota" element={<Ota />} />
         </Route>
 
         
