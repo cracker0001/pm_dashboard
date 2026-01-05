@@ -259,7 +259,9 @@ const Ota = () => {
                 </div>
 
                 <div className="start-ota">
-                  <button>Start OTA</button>
+                  <button 
+                  onClick={()=> navigate("/dashboard/ota/tractorselection")}
+                  >Start OTA</button>
                 </div>
               </div>
             </div>
