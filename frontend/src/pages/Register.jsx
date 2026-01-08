@@ -3,8 +3,8 @@ import { toast } from "react-toastify";
 import "./Register.css"; 
 import { useNavigate } from "react-router-dom";
 
-const API = "https://backend-prod.moonrider.ai";
 
+const API = import.meta.env.VITE_AUTH_API;
 const Register = () => {
 
   const [formData, setFormData] = useState({

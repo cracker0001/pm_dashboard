@@ -3,8 +3,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
-const API = "https://backend-prod.moonrider.ai";
-
+const API = import.meta.env.VITE_AUTH_API;
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -16,3 +16,4 @@ export const fetchVehicle = (tractorId) => {
     params: { tractorId },
   });
 };
+
