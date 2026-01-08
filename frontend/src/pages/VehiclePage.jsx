@@ -10,6 +10,8 @@ import Graph from "./Graph.jsx";
 export default function VehiclePage() {
   const [tractorId, setTractorId] = useState("");
   const [startDate, setStartDate] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
+
   const [endDate, setEndDate] = useState("");
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +21,7 @@ export default function VehiclePage() {
 
   const handleFindData = () => {
     setActiveTab("find");
+    setHasSearched(true);  
     handleSearch();
   };
 
@@ -158,7 +161,7 @@ export default function VehiclePage() {
       className={`dashboard-data ${activeTab === "find" ? "active" : ""}`}
       onClick={handleFindData}
     >
-      {activeTab === "find" && <span className="live-indicator"></span>}
+      {activeTab === "find" && hasSearched && <span className="live-indicator"></span>}
       Data
     </button>
 
@@ -175,7 +178,12 @@ export default function VehiclePage() {
 
     <button
       className={`graphs ${activeTab === "graph" ? "active" : ""}`}
-      onClick={() => setActiveTab("graph")}
+      onClick={() => {
+         if (!tractorId) return alert("Enter VIN");
+        setActiveTab("live");
+        setActiveTab("graph")
+      }
+    }
     >
       {activeTab === "graph" && <span className="live-indicator"></span>}
       Graphs

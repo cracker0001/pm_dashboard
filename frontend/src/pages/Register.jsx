@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import "./Register.css"; 
 import { useNavigate } from "react-router-dom";
 
@@ -34,18 +35,20 @@ const Register = () => {
 
       if (response.ok) {
         await response.json();
-        setMessage("✅ Registration successful!");
+        toast.success("Register Successfull")
 
         setFormData({ email: "", password: "" });
 
         setTimeout(() => navigate("/login"), 1500);
       } else {
         const error = await response.json();
-        setMessage(error.message || "❌ Registration failed");
+        // setMessage(error.message || "❌ Registration failed");
+        toast.error(error.message || "Registration failed");
       }
     } catch (err) {
       console.error("Error:", err);
-      setMessage("❌ Something went wrong");
+      toast.error("something went wrong");
+      // setMessage("❌ Something went wrong");
     }
   };
 
@@ -101,4 +104,3 @@ const Register = () => {
 };
 
 export default Register;
-

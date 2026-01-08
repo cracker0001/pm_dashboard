@@ -1,13 +1,26 @@
+
+// import ManifestHistory from "./ManifestHistory";
 // import React, { useState } from "react";
 // import "./Ota.css";
 // import tractorImg from "../assets/tractor.png";
+// import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 // const Ota = () => {
-//   // 🔹 filter state
+//   // filters (sirf All Tractors ke liye)
 //   const [activeFilter, setActiveFilter] = useState("all");
 
+//   // routing hooks
+//   const location = useLocation();
+//   const navigate = useNavigate();
+
+//   // check manifest route
+//   const isManifest = location.pathname.includes("manifesthistory");
+//   const isDetail = location.pathname.includes("/tractor/");
 //   return (
 //     <div className="ota-screen">
+//       {/* ===================== */}
+//       {/* TOP STATS CARDS */}
+//       {/* ===================== */}
 //       <div className="ota-cards">
 //         <div className="ota-card">
 //           <div className="ota-card-left">
@@ -40,141 +53,166 @@
 //           </div>
 //         </div>
 //       </div>
-     
-//       <div className="ota-tractor-list">
-//         <div className="ota-updating-container">
-//           <div className="ota-updating-header">
-//             <div className="ota-filters">
-//               <div className="filters">
-//                 <button
-//                   className={`filter-btn ${
-//                     activeFilter === "all" ? "active" : ""
-//                   }`}
-//                   onClick={() => setActiveFilter("all")}
-//                 >
-//                   Filter 1
-//                 </button>
 
-//                 <button
-//                   className={`filter-btn ${
-//                     activeFilter === "updated" ? "active" : ""
-//                   }`}
-//                   onClick={() => setActiveFilter("updated")}
-//                 >
-//                   Filter 2
-//                 </button>
+//       {/* ===================== */}
+//       {/* TOP TABS (ROUTE BASED) */}
+//       {/* ===================== */}
+//       <div className="ota-tabs">
+//         <button
+//           className={`ota-tab ${!isManifest ? "active" : ""}`}
+//           onClick={() => navigate("/dashboard/ota")}
+//         >
+//           All Tractors
+//         </button>
 
-//                 <button
-//                   className={`filter-btn ${
-//                     activeFilter === "updating" ? "active" : ""
-//                   }`}
-//                   onClick={() => setActiveFilter("updating")}
-//                 >
-//                   Filter 3
-//                 </button>
-//               </div>
+//         <button
+//           className={`ota-tab ${isManifest ? "active" : ""}`}
+//           onClick={() => navigate("/dashboard/ota/manifesthistory")}
+//         >
+//           Manifest History
+//         </button>
+//       </div>
 
-//               <div className="start-ota">
-//                 <button>Start OTA</button>
-//               </div>
-//             </div>
-//           </div>
+//       {/* ===================== */}
+//       {/* ALL TRACTORS (DEFAULT ROUTE) */}
+//       {/* ===================== */}
+//     {!isManifest && !isDetail && (
+//         <div className="ota-tractor-list">
+//           <div className="ota-updating-container">
+//             <div className="ota-updating-header">
+//               <div className="ota-filters">
+//                 <div className="filters">
+//                   <button
+//                     className={`filter-btn ${activeFilter === "all" ? "active" : ""}`}
+//                     onClick={() => setActiveFilter("all")}
+//                   >
+//                     Filter 1
+//                   </button>
 
-//           {/* ✅ ROW 1 – UPDATED */}
-//           {(activeFilter === "all" || activeFilter === "updated") && (
-//             <div className="ota-row">
-//               <div className="ota-left">
-//                 <div>
-//                   <img src={tractorImg} alt="" />
+//                   <button
+//                     className={`filter-btn ${activeFilter === "updated" ? "active" : ""}`}
+//                     onClick={() => setActiveFilter("updated")}
+//                   >
+//                     Filter 2
+//                   </button>
+
+//                   <button
+//                     className={`filter-btn ${activeFilter === "updating" ? "active" : ""}`}
+//                     onClick={() => setActiveFilter("updating")}
+//                   >
+//                     Filter 3
+//                   </button>
 //                 </div>
-//                 <div>
-//                   <p>Highforce 50 HP</p>
-//                   <p>ID:ME9BT525J01573002</p>
-//                 </div>
-//               </div>
 
-//               <div className="ota-right">
-//                 <div className="ota-version">
-//                   <div>
-//                     <p>MCU Version</p>
-//                     <p className="version">V12.01.09</p>
-//                   </div>
-//                   <div>
-//                     <p>BLE Version</p>
-//                     <p className="version">V12.01.09</p>
-//                   </div>
-//                   <div>
-//                     <p>BMS Version</p>
-//                     <p className="version">V12.01.09</p>
-//                   </div>
-
-//                   <div className="status-body">
-//                     <span className="tick-circle">✓</span>
-//                     <span>Up to date</span>
-//                   </div>
+//                 <div className="start-ota">
+//                   <button 
+//                   onClick={()=> navigate("/dashboard/ota/tractorselection")}
+//                   >Start OTA</button>
 //                 </div>
 //               </div>
 //             </div>
-//           )}
 
-//           {/* ✅ ROW 2 – UPDATING */}
-//           {(activeFilter === "all" || activeFilter === "updating") && (
-//             <div className="ota-row">
-//               <div className="ota-left">
-//                 <div>
-//                   <img src={tractorImg} alt="" />
-//                 </div>
-//                 <div>
-//                   <p>Highforce 50 HP</p>
-//                   <p>ID:ME9BT525J01573003</p>
-//                 </div>
-//               </div>
+//             {/* UPDATED ROW */}
+//             {(activeFilter === "all" || activeFilter === "updated") && (
+//               <div
+//                  className="ota-row"
+//                 onClick={() => {
+               
+//                navigate(`tractor/ME9BT525J01573002`);
 
-//               <div className="ota-right">
-//                 <div className="ota-updates">
-//                   <div className="updates">
-//                     <p>Updating...</p>
-//                     <div className="progress-value">
-//                       <p>70%</p>
+//                   }}
+//                  >
+
+//                 <div className="ota-left">
+//                   <img src={tractorImg} alt="tractor" />
+//                   <div>
+//                     <p>Highforce 50 HP</p>
+//                     <p>ID: ME9BT525J01573002</p>
+//                   </div>
+//                 </div>
+
+//                 <div className="ota-right">
+//                   <div className="ota-version">
+//                     <div>
+//                       <p>MCU Version</p>
+//                       <p className="version">V12.01.09</p>
+//                     </div>
+//                     <div>
+//                       <p>BLE Version</p>
+//                       <p className="version">V12.01.09</p>
+//                     </div>
+//                     <div>
+//                       <p>BMS Version</p>
+//                       <p className="version">V12.01.09</p>
+//                     </div>
+
+//                     <div className="status-body">
+//                       <span className="tick-circle">✓</span>
+//                       <span>Up to date</span>
 //                     </div>
 //                   </div>
+//                 </div>
+//               </div>
+//             )}
 
-//                   <div className="ota-progress">
-//                     <div className="progress-bar"></div>
+//             {/* UPDATING ROW */}
+//             {(activeFilter === "all" || activeFilter === "updating") && (
+//               <div className="ota-row">
+//                 <div className="ota-left">
+//                   <img src={tractorImg} alt="tractor" />
+//                   <div>
+//                     <p>Highforce 50 HP</p>
+//                     <p>ID: ME9BT525J01573003</p>
+//                   </div>
+//                 </div>
+
+//                 <div className="ota-right">
+//                   <div className="ota-updates">
+//                     <div className="updates">
+//                       <p>Updating...</p>
+//                       <p>70%</p>
+//                     </div>
+
+//                     <div className="ota-progress">
+//                       <div className="progress-bar"></div>
+//                     </div>
 //                   </div>
 //                 </div>
 //               </div>
-//             </div>
-//           )}
+//             )}
+//           </div>
 //         </div>
-//       </div>
+//       )}
+
+//       {/* ===================== */}
+//       {/* MANIFEST HISTORY ROUTE */}
+//       {/* ===================== */}
+//       <Outlet />
 //     </div>
 //   );
 // };
 
 // export default Ota;
-import ManifestHistory from "./ManifestHistory";
+
+
 import React, { useState } from "react";
 import "./Ota.css";
 import tractorImg from "../assets/tractor.png";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import ManifestHistory from "./ManifestHistory";
 
 const Ota = () => {
-  // filters (sirf All Tractors ke liye)
   const [activeFilter, setActiveFilter] = useState("all");
 
-  // routing hooks
+
   const location = useLocation();
   const navigate = useNavigate();
 
-  // check manifest route
   const isManifest = location.pathname.includes("manifesthistory");
   const isDetail = location.pathname.includes("/tractor/");
   return (
     <div className="ota-screen">
-      {/* ===================== */}
-      {/* TOP STATS CARDS */}
-      {/* ===================== */}
+
       <div className="ota-cards">
         <div className="ota-card">
           <div className="ota-card-left">
@@ -208,9 +246,7 @@ const Ota = () => {
         </div>
       </div>
 
-      {/* ===================== */}
-      {/* TOP TABS (ROUTE BASED) */}
-      {/* ===================== */}
+
       <div className="ota-tabs">
         <button
           className={`ota-tab ${!isManifest ? "active" : ""}`}
@@ -227,9 +263,7 @@ const Ota = () => {
         </button>
       </div>
 
-      {/* ===================== */}
-      {/* ALL TRACTORS (DEFAULT ROUTE) */}
-      {/* ===================== */}
+     
     {!isManifest && !isDetail && (
         <div className="ota-tractor-list">
           <div className="ota-updating-container">
@@ -266,7 +300,6 @@ const Ota = () => {
               </div>
             </div>
 
-            {/* UPDATED ROW */}
             {(activeFilter === "all" || activeFilter === "updated") && (
               <div
                  className="ota-row"
@@ -309,7 +342,6 @@ const Ota = () => {
               </div>
             )}
 
-            {/* UPDATING ROW */}
             {(activeFilter === "all" || activeFilter === "updating") && (
               <div className="ota-row">
                 <div className="ota-left">
@@ -338,9 +370,7 @@ const Ota = () => {
         </div>
       )}
 
-      {/* ===================== */}
-      {/* MANIFEST HISTORY ROUTE */}
-      {/* ===================== */}
+
       <Outlet />
     </div>
   );

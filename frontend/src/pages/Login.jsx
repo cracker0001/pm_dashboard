@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
@@ -32,15 +33,15 @@ export default function Login() {
       if (res.ok) {
         const data = await res.json();
         sessionStorage.setItem("token", data.token);
-        setMessage("✅ Login successful!");
+        toast.success("Login successful");
         setTimeout(() => navigate("/dashboard/vehicle"), 1000);
       } else {
         const error = await res.json();
-        setMessage(error.message || "❌ Login failed");
+         toast.error("Invalid credentials");
       }
     } catch (err) {
       console.error("Login error:", err);
-      setMessage("❌ Something went wrong");
+       toast.error("Invalid credentials");
     }
   }
 
